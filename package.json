@@ -1,0 +1,12 @@
+{
+  "name": "jelly",
+  "private": true,
+  "scripts": {
+    "build:standalone": "node scripts/build-standalone.js",
+    "check": "node --check jelly.js && node scripts/build-standalone.js --check && node --test",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

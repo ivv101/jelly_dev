@@ -1,0 +1,1511 @@
+"use strict";
+
+const LEVELS = [
+    ["xxxxxxxxxxxxxx", "x            x", "x            x", "x      r     x", "x      xx    x", "x  g     r b x", "xxbxxxg xxxxxx", "xxxxxxxxxxxxxx"], ["xxxxxxxxxxxxxx", "x            x", "x            x", "x            x", "x     g   g  x", "x   r r   r  x", "xxxxx x x xxxx", "xxxxxxxxxxxxxx"], ["xxxxxxxxxxxxxx", "x            x", "x            x", "x   bg  x g  x", "xxx xxxrxxx  x", "x      b     x", "xxx xxxrxxxxxx", "xxxxxxxxxxxxxx"], ["xxxxxxxxxxxxxx", "x            x", "x       r    x", "x       b    x", "x       x    x", "x b r        x", "x b r      b x", "xxx x      xxx", "xxxxx xxxxxxxx", "xxxxxxxxxxxxxx"], ["xxxxxxxxxxxxxx", "x            x", "x            x", "xrg  gg      x", "xxx xxxx xx  x", "xrg          x", "xxxxx  xx   xx", "xxxxxx xx  xxx", "xxxxxxxxxxxxxx"], ["xxxxxxxxxxxxxx", "xxxxxxx      x", "xxxxxxx g    x", "x       xx   x", "x r   b      x", "x x xxx x g  x", "x         x bx", "x       r xxxx", "x   xxxxxxxxxx", "xxxxxxxxxxxxxx"], [
+      ["xxxxxxxxxxxxxx", "x            x", "x          r x", "x          x x", "x     b   b  x", "x     x  rr  x", "x         x  x", "x r  bx x x  x", "x x  xx x x  x", "xxxxxxxxxxxxxx"], [
+        {
+          x: 2,
+          y: 7,
+          dir: 'down'
+        }, {
+          x: 5,
+          y: 7,
+          dir: 'down'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xxxx x  x xxxx", "xxx  g  b  xxx", "xx   x  x   xx", "xx   b  g   xx", "xxg        bxx", "xxxg      bxxx", "xxxx      xxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 5,
+          y: 4,
+          dir: 'up'
+        }, {
+          x: 8,
+          y: 4,
+          dir: 'up'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x            x", "x            x", "x          rbx", "x    x     xxx", "xb        00xx", "xx  rx  x xxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 4,
+          y: 6,
+          dir: 'down'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x   gr       x", "x   00 1     x", "x    x x xxxxx", "x            x", "x  x  x      x", "x        x  rx", "xx   x     gxx", "x          xxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 11,
+          y: 7,
+          dir: 'down'
+        }, {
+          x: 12,
+          y: 6,
+          dir: 'down'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x      g00g gx", "x       xxx xx", "x           gx", "x11         xx", "xxx          x", "x       g    x", "x   x xxx   gx", "x   xxxxxx xxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 12,
+          y: 7,
+          dir: 'down'
+        }, {
+          x: 7,
+          y: 1,
+          dir: 'right'
+        }, {
+          x: 10,
+          y: 1,
+          dir: 'left'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xxr rr  rr rxx", "xxx  x  x  xxx", "x            x", "xb          bx", "xx          xx", "x            x", "x            x", "x   xxxxxx   x", "xxxxxxxxxxxxxx"], [
+        {
+          x: 12,
+          y: 4,
+          dir: 'down'
+        }
+      ]
+    ], ["xxxxxxxxxxxxxx", "xxxxxxxxxxxxxx", "xxxxx gr xxxxx", "xxxxx rb xxxxx", "xxxxx gr xxxxx", "xxxxx bg xxxxx", "xxxxxxxxxxxxxx", "xxxxxxxxxxxxxx"], [
+      ["xxxxxxxxxxxxxx", "xxxxxxxxx   rx", "xxxxxxxxx   gx", "xxxxxxxxx   gx", "x1122       gx", "x1122       gx", "x0033      xxx", "x0033      xxx", "xxr x gxxx xxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 2,
+          y: 8,
+          dir: 'down'
+        }, {
+          x: 6,
+          y: 8,
+          dir: 'down'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xr r r      rx", "xg x x      gx", "xb          bx", "xxxxx     xxxx", "xxxxxx   xxxxx", "xxxxxx   xxxxx", "xxxxxx   xxxxx", "xxxxxxgggxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 1,
+          y: 3,
+          dir: 'down'
+        }, {
+          x: 6,
+          y: 8,
+          dir: 'left'
+        }, {
+          x: 8,
+          y: 8,
+          dir: 'right'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xx   0001233rx", "xx   0411233xx", "xx   444122xxx", "xx     xxxxxxx", "xr     xxxxxxx", "xx     xxxxxxx", "xx     xxxxxxx", "xx     xxxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 1,
+          y: 5,
+          dir: 'up'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xxxx000xxxgb x", "xxxx0     bg x", "xxxx0    11xxx", "xxxx000xxxxxxx", "x 222  xxxxxxx", "xxxx     xxgxx", "xxxx   g    bx", "xxxx   x     x", "xxxxxxxxxxxxxx"], [
+        {
+          x: 11,
+          y: 6,
+          dir: 'up'
+        }, {
+          x: 12,
+          y: 7,
+          dir: 'up'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x            x", "xb01         x", "xb0gg     g  x", "xb023     g4bx", "xxxxx g   xxxx", "xxxxx gg  xxxx", "xxxxx ggg xxxx", "xxxxx ggggxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 12,
+          y: 4,
+          dir: 'down'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xg0    g1gx  x", "x 3g    1 x  x", "x444    2 x  x", "xg g   ggg   x", "xxx     xxx  x", "xxx     xxx  x", "xxx     xxx  x", "xxx          x", "xxxxxxxxxxxxxx"], [
+        {
+          x: 1,
+          y: 1,
+          dir: 'right'
+        }, {
+          x: 3,
+          y: 2,
+          dir: 'left'
+        }, {
+          x: 1,
+          y: 4,
+          dir: 'up'
+        }, {
+          x: 3,
+          y: 4,
+          dir: 'up'
+        }, {
+          x: 8,
+          y: 4,
+          dir: 'up'
+        }, {
+          x: 7,
+          y: 1,
+          dir: 'right'
+        }, {
+          x: 9,
+          y: 1,
+          dir: 'left'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xrrrr   rggxxx", "xxxb    xxxxxx", "xxxx       xbx", "xx           x", "xx           x", "xx     x     x", "xx x         x", "xx        x  x", "xxxxxxxxxxxxxx"], [
+        {
+          x: 12,
+          y: 3,
+          dir: 'up'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x      x     x", "x      x     x", "x      x     x", "x      g     x", "x        gb  x", "xxxx     xx  x", "xxxr b     r x", "xxxx xxxxxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 7,
+          y: 4,
+          dir: 'up'
+        }
+      ], [
+        {
+          x: 7,
+          y: 8,
+          dir: 'up',
+          color: 'red'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x            x", "x            x", "x            x", "x            x", "x    g  bgr  x", "x x xx  xxx xx", "xbx          x", "xxxxxxxxxxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 6,
+          y: 7,
+          dir: 'down'
+        }
+      ], [
+        {
+          x: 6,
+          y: 8,
+          dir: 'up',
+          color: 'red'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x            x", "x            x", "x    g       x", "x    b       x", "x    x    r  x", "x        xx  x", "x b          x", "xxxx r xxx xgx", "xxxxxxxxxxxxxx"], [], [
+        {
+          x: 8,
+          y: 8,
+          dir: 'up',
+          color: 'red'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xg   b     xxx", "xr   g     xxx", "xy   b y   yxx", "xx   x x   xxx", "xxxx       xxx", "xxxx       xxx", "xxxxxx xxxxxxx", "xxxxxxgxxxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 1,
+          y: 3,
+          dir: 'down'
+        }, {
+          x: 6,
+          y: 8,
+          dir: 'down'
+        }, {
+          x: 9,
+          y: 6,
+          dir: 'down'
+        }
+      ], [
+        {
+          x: 4,
+          y: 7,
+          dir: 'up',
+          color: 'green'
+        }, {
+          x: 9,
+          y: 7,
+          dir: 'up',
+          color: 'red'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xxxxxxxx  x  x", "xxxxxxxx  r  x", "xxxxxxxx     x", "xxxxx     r  x", "xx111    222 x", "x 111    222 x", "x g        x x", "xxxxxxxxxxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 10,
+          y: 2,
+          dir: 'up'
+        }
+      ], [
+        {
+          x: 4,
+          y: 8,
+          dir: 'up',
+          color: 'green'
+        }, {
+          x: 7,
+          y: 8,
+          dir: 'up',
+          color: 'green'
+        }, {
+          x: 10,
+          y: 8,
+          dir: 'up',
+          color: 'green'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xx        xxxx", "xx  r     xxxx", "xx11111111xxxx", "xx     r   xxx", "xx22222222 xxx", "xx  r      xxx", "xx33333333xxxx", "xx     r  xxxx", "xxxxxxxxxxxxxx"], [], [
+        {
+          x: 7,
+          y: 3,
+          dir: 'up',
+          color: 'red'
+        }, {
+          x: 4,
+          y: 5,
+          dir: 'up',
+          color: 'red'
+        }, {
+          x: 7,
+          y: 7,
+          dir: 'up',
+          color: 'red'
+        }, {
+          x: 4,
+          y: 9,
+          dir: 'up',
+          color: 'red'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xxxxxgxyxrxxxx", "xxxxx     xxxx", "xbyg2     r  x", "xxxxx     xx x", "xxxxx11111xx x", "xxxxx11111 x x", "xxxx 11111bx x", "xxxx   b     x", "xxxxxxxxxxxxxx"], [
+        {
+          x: 5,
+          y: 1,
+          dir: 'up'
+        }, {
+          x: 7,
+          y: 1,
+          dir: 'up'
+        }, {
+          x: 9,
+          y: 1,
+          dir: 'up'
+        }, {
+          x: 10,
+          y: 7,
+          dir: 'left'
+        }
+      ], [
+        {
+          x: 6,
+          y: 9,
+          dir: 'up',
+          color: 'blue'
+        }, {
+          x: 8,
+          y: 9,
+          dir: 'up',
+          color: 'blue'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xxxx x  x xxxx", "xxx gb  gb xxx", "xx  xx  xx  xx", "xx   b  g   xx", "xx          xx", "xxx        xxx", "xxxxg    bxxxx", "xxxxxxxxxxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 5,
+          y: 4,
+          dir: 'up'
+        }, {
+          x: 8,
+          y: 4,
+          dir: 'up'
+        }, {
+          x: 5,
+          y: 7,
+          dir: 'down'
+        }, {
+          x: 8,
+          y: 7,
+          dir: 'down'
+        }
+      ], [
+        {
+          x: 5,
+          y: 8,
+          dir: 'up',
+          color: 'blue'
+        }, {
+          x: 8,
+          y: 8,
+          dir: 'up',
+          color: 'green'
+        }
+      ]
+    ], ["xxxxxxxxxxxxxx", "xxxx yyrr xxxx", "xxxx yyrr xxxx", "xxx  bbgg  xxx", "xxx  bbgg  xxx", "xxx  ggbb  xxx", "xxx  ggbb  xxx", "xxxx rryy xxxx", "xxxx rryy xxxx", "xxxxxxxxxxxxxx"], [
+      ["xxxxxxxxxxxxxx", "xr    xxxxxxxx", "xxx        xxx", "xxxx       xxx", "xxxx       xxx", "xxxx       xxx", "xxxx       xxx", "xrrr       xxx", "xxr        bxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 1,
+          y: 1,
+          dir: 'up'
+        }
+      ], [
+        {
+          x: 5,
+          y: 9,
+          dir: 'up',
+          color: 'blue'
+        }, {
+          x: 6,
+          y: 9,
+          dir: 'up',
+          color: 'blue'
+        }, {
+          x: 7,
+          y: 9,
+          dir: 'up',
+          color: 'blue'
+        }, {
+          x: 8,
+          y: 9,
+          dir: 'up',
+          color: 'blue'
+        }, {
+          x: 9,
+          y: 9,
+          dir: 'up',
+          color: 'blue'
+        }, {
+          x: 10,
+          y: 9,
+          dir: 'up',
+          color: 'blue'
+        }, {
+          x: 11,
+          y: 7,
+          dir: 'left',
+          color: 'blue'
+        }, {
+          x: 11,
+          y: 6,
+          dir: 'left',
+          color: 'blue'
+        }, {
+          x: 11,
+          y: 5,
+          dir: 'left',
+          color: 'blue'
+        }, {
+          x: 11,
+          y: 4,
+          dir: 'left',
+          color: 'blue'
+        }, {
+          x: 11,
+          y: 3,
+          dir: 'left',
+          color: 'blue'
+        }, {
+          x: 11,
+          y: 2,
+          dir: 'left',
+          color: 'blue'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xxb xxxxxx bxx", "xxx  r  r  xxx", "xx   xxxx   xx", "xx xxxxxxxx xx", "x g   xx   g x", "xx11      22xx", "xx11      22xx", "xxxxxr  rxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 5,
+          y: 8,
+          dir: 'down'
+        }, {
+          x: 8,
+          y: 8,
+          dir: 'down'
+        }, {
+          x: 4,
+          y: 6,
+          dir: 'left'
+        }, {
+          x: 9,
+          y: 6,
+          dir: 'right'
+        }
+      ], [
+        {
+          x: 3,
+          y: 6,
+          dir: 'right',
+          color: 'green'
+        }, {
+          x: 10,
+          y: 6,
+          dir: 'left',
+          color: 'green'
+        }, {
+          x: 2,
+          y: 2,
+          dir: 'right',
+          color: 'blue'
+        }, {
+          x: 11,
+          y: 2,
+          dir: 'left',
+          color: 'blue'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xg   y   xr0bx", "x1   2    y3gx", "xb   r44    xx", "xx   xxx   xxx", "x           xx", "x       xx  xx", "xx          xx", "xxx        xxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 1,
+          y: 1,
+          dir: 'down'
+        }, {
+          x: 1,
+          y: 3,
+          dir: 'up'
+        }, {
+          x: 5,
+          y: 1,
+          dir: 'down'
+        }, {
+          x: 5,
+          y: 3,
+          dir: 'up'
+        }, {
+          x: 10,
+          y: 1,
+          dir: 'right'
+        }, {
+          x: 12,
+          y: 1,
+          dir: 'left'
+        }, {
+          x: 10,
+          y: 2,
+          dir: 'right'
+        }, {
+          x: 12,
+          y: 2,
+          dir: 'left'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xx1144    xxxx", "xr1224    xxxx", "xx3225    xxxx", "xx3355    xxxx", "xxxxxx    xxrx", "xx           x", "xxx          x", "xx     xx  x x", "xxxxxxxxxxxxxx"], [
+        {
+          x: 12,
+          y: 5,
+          dir: 'up'
+        }
+      ], [
+        {
+          x: 1,
+          y: 6,
+          dir: 'right',
+          color: 'red'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xb      r12rxx", "xx      1122 x", "xx      3344xx", "x       r34rxx", "x       xxxxxx", "xx     gxxxxxx", "xx     xxxxxxx", "xx     xxxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 1,
+          y: 4,
+          dir: 'left'
+        }, {
+          x: 8,
+          y: 1,
+          dir: 'right'
+        }, {
+          x: 8,
+          y: 1,
+          dir: 'down'
+        }, {
+          x: 11,
+          y: 1,
+          dir: 'left'
+        }, {
+          x: 11,
+          y: 1,
+          dir: 'down'
+        }, {
+          x: 8,
+          y: 4,
+          dir: 'right'
+        }, {
+          x: 8,
+          y: 4,
+          dir: 'up'
+        }, {
+          x: 11,
+          y: 4,
+          dir: 'left'
+        }, {
+          x: 11,
+          y: 4,
+          dir: 'up'
+        }
+      ], [
+        {
+          x: 0,
+          y: 4,
+          dir: 'right',
+          color: 'blue'
+        }, {
+          x: 13,
+          y: 2,
+          dir: 'left',
+          color: 'blue'
+        }, {
+          x: 4,
+          y: 9,
+          dir: 'up',
+          color: 'green'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x00    bbbbbrx", "x0b        byx", "x00        byx", "xxxyyy     byx", "xxr1b1     xxx", "xx 111     xxx", "xxxxx      xxx", "xxxxxxxx   xxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 2,
+          y: 2,
+          dir: 'left'
+        }, {
+          x: 2,
+          y: 2,
+          dir: 'up'
+        }, {
+          x: 2,
+          y: 2,
+          dir: 'down'
+        }, {
+          x: 2,
+          y: 5,
+          dir: 'up'
+        }, {
+          x: 4,
+          y: 5,
+          dir: 'down'
+        }, {
+          x: 4,
+          y: 5,
+          dir: 'left'
+        }, {
+          x: 4,
+          y: 5,
+          dir: 'right'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x    brgrbg  x", "x  xx111111xxx", "x  xx1y11r1xxx", "x    111122  x", "x    112222  x", "x    222222  x", "x    222222  x", "x    222222  x", "xxxxxxxxxxxxxx"], [], [
+        {
+          x: 4,
+          y: 9,
+          dir: 'up',
+          color: 'red'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xrr  rrr  rryx", "xxx    x   xxx", "x           gx", "x  rrr    rrrx", "xx  1        x", "xxx 1        x", "xx  1        x", "xxx 1       xx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 12,
+          y: 4,
+          dir: 'right'
+        }
+      ], [
+        {
+          x: 0,
+          y: 3,
+          dir: 'right',
+          color: 'yellow'
+        }, {
+          x: 0,
+          y: 4,
+          dir: 'right',
+          color: 'green'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xgggxxybr    x", "x   xxbyb    x", "xgggxxxxxxx  x", "x111xx       x", "xx1xxx       x", "xx      xx xxx", "xx       xxxxx", "xxxxx xxxxxxxx", "xxxxxxxxxxxxxx"], [
+        {
+          x: 1,
+          y: 1,
+          dir: 'up'
+        }, {
+          x: 2,
+          y: 1,
+          dir: 'up'
+        }, {
+          x: 3,
+          y: 1,
+          dir: 'up'
+        }, {
+          x: 1,
+          y: 3,
+          dir: 'down'
+        }, {
+          x: 2,
+          y: 3,
+          dir: 'down'
+        }, {
+          x: 3,
+          y: 3,
+          dir: 'down'
+        }
+      ], [
+        {
+          x: 2,
+          y: 8,
+          dir: 'up',
+          color: 'red'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "xxxxx    xxxxx", "xxxx  1111xxxx", "xxxxx    xxxxx", "xxrx      xgxx", "xxb        bxx", "xyr        gyx", "xxxx      xxxx", "xxxxx xx xxxxx", "xxxxxxxxxxxxxx"], [], [
+        {
+          x: 3,
+          y: 7,
+          dir: 'up',
+          color: 'green'
+        }, {
+          x: 10,
+          y: 7,
+          dir: 'up',
+          color: 'red'
+        }
+      ]
+    ], [
+      ["xxxxxxxxxxxxxx", "x      r r r x", "xx1yxxxx x x x", "xx11r  x x r x", "xxry y x x x x", "xx22 x x x r x", "xx22       x x", "xx2          x", "xxxx     x   x", "xxxxxxxxxxxxxx"], [
+        {
+          x: 4,
+          y: 3,
+          dir: 'up'
+        }
+      ], [
+        {
+          x: 3,
+          y: 8,
+          dir: 'up',
+          color: 'yellow'
+        }
+      ]
+    ]
+  ];
+
+const CELL_SIZE = 48;
+const INPUT_EVENTS = ["contextmenu", "click", "touchstart", "touchmove"];
+const ANIMATION_EVENTS = ["transitionend", "webkitTransitionEnd"];
+
+const DIRECTIONS = {
+  left: { x: -1, y: 0 },
+  right: { x: 1, y: 0 },
+  up: { x: 0, y: -1 },
+  down: { x: 0, y: 1 },
+};
+
+const STYLE_COLORS = {
+  black: "hsl(0,     0%,  0%)",
+  red: "hsl(0,   100%, 75%)",
+  green: "hsl(120, 100%, 45%)",
+  blue: "hsl(216, 100%, 70%)",
+  yellow: "hsl(60,  100%, 50%)",
+};
+
+function moveToCell(dom, x, y) {
+  dom.style.left = `${x * CELL_SIZE}px`;
+  dom.style.top = `${y * CELL_SIZE}px`;
+}
+
+class Stage {
+  constructor(dom, spec) {
+    if (!dom) {
+      throw new TypeError("Stage requires a DOM container");
+    }
+    if (!Array.isArray(spec) || spec.length === 0) {
+      throw new TypeError("Stage requires a level specification");
+    }
+
+    this.dom = dom;
+    this.document = dom.ownerDocument || document;
+    this.jellies = [];
+    this.history = [];
+    this.anchored_cells = [];
+    this.growers = [];
+    this.delayed_anchors = [];
+    this.listenerRecords = new Set();
+    this.timers = new Set();
+    this.destroyed = false;
+    this.busy = false;
+
+    let map = spec;
+    let anchors;
+    let growers;
+    if (Array.isArray(spec[0])) {
+      [map, anchors, growers] = spec;
+    }
+
+    this.num_monochromatic_blocks = 0;
+    this.num_colors = 0;
+    this.loadMap(map);
+    if (anchors) {
+      this.placeAnchors(anchors, growers || []);
+    }
+    if (growers) {
+      this.placeGrowers(growers);
+    }
+
+    this.handleInputCapture = (event) => {
+      event.preventDefault();
+      if (this.busy) {
+        event.stopPropagation();
+      }
+    };
+    for (const eventName of INPUT_EVENTS) {
+      this.listen(this.dom, eventName, this.handleInputCapture, true);
+    }
+
+    this.checkForMerges();
+  }
+
+  listen(target, type, handler, options = false) {
+    if (this.destroyed) {
+      return () => {};
+    }
+
+    target.addEventListener(type, handler, options);
+    const record = { target, type, handler, options, removed: false, remove: null };
+    record.remove = () => {
+      if (record.removed) {
+        return;
+      }
+      record.removed = true;
+      target.removeEventListener(type, handler, options);
+      this.listenerRecords.delete(record);
+    };
+    this.listenerRecords.add(record);
+    return record.remove;
+  }
+
+  schedule(callback, delay) {
+    if (this.destroyed) {
+      return null;
+    }
+
+    const timer = setTimeout(() => {
+      this.timers.delete(timer);
+      if (!this.destroyed) {
+        callback();
+      }
+    }, delay);
+    this.timers.add(timer);
+    return timer;
+  }
+
+  destroy() {
+    if (this.destroyed) {
+      return;
+    }
+
+    this.destroyed = true;
+    this.busy = false;
+    for (const timer of this.timers) {
+      clearTimeout(timer);
+    }
+    this.timers.clear();
+    for (const record of [...this.listenerRecords]) {
+      record.remove();
+    }
+
+    this.jellies = [];
+    this.history = [];
+    this.anchored_cells = [];
+    this.growers = [];
+    this.delayed_anchors = [];
+    this.cells = [];
+  }
+
+  loadMap(map) {
+    const table = this.document.createElement("table");
+    this.dom.appendChild(table);
+    const colors = new Set();
+
+    this.cells = map.map((rowText, y) => {
+      const row = [...rowText];
+      const tr = this.document.createElement("tr");
+      table.appendChild(tr);
+
+      return row.map((symbol, x) => {
+        let color = null;
+        let className = "transparent";
+        let cell = null;
+        const td = this.document.createElement("td");
+
+        if (symbol === "x") {
+          className = "cell wall";
+          cell = new Wall(td);
+        } else if (symbol === "r") {
+          color = "red";
+        } else if (symbol === "g") {
+          color = "green";
+        } else if (symbol === "b") {
+          color = "blue";
+        } else if (symbol === "y") {
+          color = "yellow";
+        } else if (/^[0-9]$/.test(symbol)) {
+          color = `black${symbol}`;
+        }
+
+        td.className = className;
+        tr.appendChild(td);
+        if (color) {
+          cell = new JellyCell(color, this.document);
+          const jelly = new Jelly(this, cell, x, y);
+          this.dom.appendChild(jelly.dom);
+          this.jellies.push(jelly);
+          this.num_monochromatic_blocks += 1;
+          if (!colors.has(color)) {
+            this.num_colors += 1;
+            colors.add(color);
+          }
+        }
+        return cell;
+      });
+    });
+
+    this.addBorders();
+  }
+
+  placeAnchors(anchors, growers) {
+    const styles = {
+      left: ["leftarrow", "borderRightColor"],
+      right: ["rightarrow", "borderLeftColor"],
+      up: ["uparrow", "borderBottomColor"],
+      down: ["downarrow", "borderTopColor"],
+    };
+
+    for (const anchor of anchors) {
+      const { x: dx, y: dy } = DIRECTIONS[anchor.dir];
+      const [className, property] = styles[anchor.dir];
+      const me = this.cells[anchor.y][anchor.x];
+      const other = this.cells[anchor.y + dy][anchor.x + dx];
+      let arrowColor = "black";
+
+      if (me === null || anchor.delayed) {
+        this.delayed_anchors.push([anchor, other]);
+        const grower = growers.find(
+          (candidate) => candidate.x === anchor.x + dx && candidate.y === anchor.y + dy,
+        );
+        if (grower) {
+          arrowColor = grower.color;
+        }
+      } else {
+        this.anchored_cells.push([me, anchor.dir]);
+        arrowColor = me.color;
+        me.mergeWith(other, anchor.dir);
+      }
+
+      const arrow = this.document.createElement("div");
+      arrow.style[property] = STYLE_COLORS[arrowColor];
+      arrow.className = className;
+      this.addElement(arrow, other);
+    }
+
+    this.jellies = this.jellies.filter((jelly) => jelly.cells);
+  }
+
+  placeGrowers(growers) {
+    const styles = {
+      left: ["leftgrower", "borderLeftColor"],
+      right: ["rightgrower", "borderRightColor"],
+      up: ["upgrower", "borderTopColor"],
+    };
+
+    for (const grower of growers) {
+      const [className, property] = styles[grower.dir];
+      const cell = this.cells[grower.y][grower.x];
+      const growerDiv = this.document.createElement("div");
+      growerDiv.style[property] = STYLE_COLORS[grower.color];
+      growerDiv.className = className;
+      this.addElement(growerDiv, cell);
+      this.growers.push([cell, grower, growerDiv]);
+      this.num_monochromatic_blocks += 1;
+    }
+  }
+
+  addElement(element, cell) {
+    if (cell.dom.firstChild) {
+      cell.dom.firstChild.appendChild(element);
+      return;
+    }
+
+    const container = this.document.createElement("div");
+    container.style.position = "relative";
+    container.style.height = "100%";
+    container.style.width = "100%";
+    container.appendChild(element);
+    cell.dom.appendChild(container);
+  }
+
+  addBorders() {
+    const border = "solid 1px #777";
+    const edges = [
+      ["borderBottom", 0, 1],
+      ["borderTop", 0, -1],
+      ["borderLeft", -1, 0],
+      ["borderRight", 1, 0],
+    ];
+
+    for (let y = 0; y < this.cells.length; y += 1) {
+      for (let x = 0; x < this.cells[0].length; x += 1) {
+        const cell = this.cells[y][x];
+        if (!(cell instanceof Wall)) {
+          continue;
+        }
+        for (const [attribute, dx, dy] of edges) {
+          if (y + dy < 0 || y + dy >= this.cells.length) {
+            continue;
+          }
+          if (x + dx < 0 || x + dx >= this.cells[0].length) {
+            continue;
+          }
+          if (!(this.cells[y + dy][x + dx] instanceof Wall)) {
+            cell.dom.style[attribute] = border;
+          }
+        }
+      }
+    }
+  }
+
+  waitForAnimation(callback) {
+    if (this.destroyed) {
+      return;
+    }
+
+    let settled = false;
+    const removers = [];
+    const end = () => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      for (const remove of removers) {
+        remove();
+      }
+      this.schedule(callback, 0);
+    };
+    for (const eventName of ANIMATION_EVENTS) {
+      removers.push(this.listen(this.dom, eventName, end));
+    }
+  }
+
+  trySlide(jelly, direction) {
+    if (this.destroyed || this.busy) {
+      return;
+    }
+
+    const jellies = [jelly];
+    if (this.checkFilled(jellies, direction, 0)) {
+      return;
+    }
+
+    this.busy = true;
+    this.saveForUndo();
+    this.move(jellies, direction, 0);
+    this.waitForAnimation(() => {
+      this.checkFall(() => {
+        this.checkForMerges();
+        this.checkForGrows();
+      });
+    });
+  }
+
+  move(jellies, dx, dy) {
+    for (const jelly of jellies) {
+      for (const [x, y] of jelly.cellCoords()) {
+        this.cells[y][x] = null;
+      }
+    }
+    for (const jelly of jellies) {
+      jelly.updatePosition(jelly.x + dx, jelly.y + dy);
+    }
+    for (const jelly of jellies) {
+      for (const [x, y, cell] of jelly.cellCoords()) {
+        this.cells[y][x] = cell;
+      }
+    }
+  }
+
+  checkFilled(jellies, dx, dy) {
+    let done = false;
+    while (!done) {
+      done = true;
+      const jellyCount = jellies.length;
+      for (let index = 0; index < jellyCount; index += 1) {
+        const jelly = jellies[index];
+        if (jelly.immovable) {
+          return true;
+        }
+        for (const [x, y] of jelly.cellCoords()) {
+          const next = this.cells[y + dy][x + dx];
+          if (!next) {
+            continue;
+          }
+          if (!next.jelly) {
+            return true;
+          }
+          if (jellies.includes(next.jelly)) {
+            continue;
+          }
+          jellies.push(next.jelly);
+          done = false;
+          break;
+        }
+      }
+    }
+    return false;
+  }
+
+  checkFall(callback) {
+    let moved = false;
+    let tryAgain = true;
+    while (tryAgain) {
+      tryAgain = false;
+      for (const jelly of this.jellies) {
+        const jellySet = [jelly];
+        if (!this.checkFilled(jellySet, 0, 1)) {
+          this.move(jellySet, 0, 1);
+          tryAgain = true;
+          moved = true;
+        }
+      }
+    }
+
+    if (moved) {
+      this.waitForAnimation(callback);
+    } else if (!this.destroyed) {
+      callback();
+    }
+  }
+
+  checkForMerges() {
+    let merged = false;
+    while (this.doOneMerge()) {
+      merged = true;
+    }
+    if (merged) {
+      this.checkForCompletion();
+    }
+  }
+
+  checkForCompletion() {
+    if (this.num_monochromatic_blocks <= this.num_colors) {
+      const view = this.document.defaultView;
+      if (view && typeof view.alert === "function") {
+        view.alert("Congratulations! Level completed.");
+      } else if (typeof alert === "function") {
+        alert("Congratulations! Level completed.");
+      }
+    }
+  }
+
+  checkForGrows() {
+    if (this.destroyed) {
+      return;
+    }
+    if (this.doOneGrow()) {
+      this.schedule(() => this.checkForGrows(), 200);
+    } else {
+      this.busy = false;
+    }
+  }
+
+  doOneGrow() {
+    for (let index = 0; index < this.growers.length; index += 1) {
+      const [cell, grower, growerDiv] = this.growers[index];
+      let { x: dx, y: dy } = DIRECTIONS[grower.dir];
+      let newX;
+      let newY;
+      if (cell instanceof Wall) {
+        newX = grower.x + dx;
+        newY = grower.y + dy;
+      } else {
+        newX = cell.x + cell.jelly.x + dx;
+        newY = cell.y + cell.jelly.y + dy;
+      }
+
+      const activator = this.cells[newY][newX];
+      if (!(activator instanceof JellyCell) || activator.color !== grower.color) {
+        continue;
+      }
+
+      let jellies = [activator.jelly];
+      if (this.checkFilled(jellies, dx, dy)) {
+        if (cell instanceof Wall) {
+          continue;
+        }
+        dx = -dx;
+        dy = -dy;
+        jellies = [activator.jelly];
+        if (this.checkFilled(jellies, dx, dy)) {
+          continue;
+        }
+        jellies.splice(0, 1);
+        newX += dx;
+        newY += dy;
+      }
+
+      this.move(jellies, dx, dy);
+      const newCell = new JellyCell(grower.color, this.document);
+      const jelly = new Jelly(this, newCell, newX, newY);
+      this.cells[newY][newX] = newCell;
+      this.dom.appendChild(jelly.dom);
+      this.jellies.push(jelly);
+      this.growers.splice(index, 1);
+      cell.dom.firstChild.removeChild(growerDiv);
+      this.checkGrownAnchored(newCell);
+      this.jellies = this.jellies.filter((candidate) => candidate.cells);
+      this.checkForMerges();
+      return true;
+    }
+    return false;
+  }
+
+  checkGrownAnchored(cell) {
+    for (let index = 0; index < this.delayed_anchors.length; index += 1) {
+      const [anchor, other] = this.delayed_anchors[index];
+      let checkX;
+      let checkY;
+      if (other instanceof Wall) {
+        checkX = anchor.x;
+        checkY = anchor.y;
+      } else {
+        checkX = other.x + other.jelly.x - DIRECTIONS[anchor.dir].x;
+        checkY = other.y + other.jelly.y - DIRECTIONS[anchor.dir].y;
+      }
+
+      if (checkX === cell.x + cell.jelly.x && checkY === cell.y + cell.jelly.y) {
+        cell.mergeWith(other, anchor.dir);
+        this.delayed_anchors.splice(index, 1);
+        this.anchored_cells.push([cell, anchor.dir]);
+        break;
+      }
+    }
+  }
+
+  doOneMerge() {
+    for (const jelly of this.jellies) {
+      for (const [x, y, cell] of jelly.cellCoords()) {
+        for (const [dx, dy, direction] of [
+          [1, 0, "right"],
+          [0, 1, "down"],
+        ]) {
+          const other = this.cells[y + dy][x + dx];
+          if (!(other instanceof JellyCell)) {
+            continue;
+          }
+          if (cell[`merged${direction}`] || other.color !== cell.color) {
+            continue;
+          }
+          if (jelly !== other.jelly) {
+            this.jellies = this.jellies.filter((candidate) => candidate !== other.jelly);
+          }
+          if (cell.color_master !== other.color_master) {
+            this.num_monochromatic_blocks -= 1;
+          }
+          cell.mergeWith(other, direction);
+          cell[`merged${direction}`] = true;
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  saveForUndo() {
+    this.history.push([
+      this.saveForUndoMap(),
+      this.saveForUndoAnchors(),
+      this.saveForUndoGrowers(),
+    ]);
+    if (this.history.length > 3) {
+      this.history = this.history.slice(-3);
+    }
+  }
+
+  saveForUndoMap() {
+    const map = [];
+    for (let y = 0; y < this.cells.length; y += 1) {
+      let row = "";
+      for (let x = 0; x < this.cells[0].length; x += 1) {
+        const cell = this.cells[y][x];
+        if (cell instanceof Wall) {
+          row += "x";
+        } else if (cell === null) {
+          row += " ";
+        } else if (cell.color === "red") {
+          row += "r";
+        } else if (cell.color === "green") {
+          row += "g";
+        } else if (cell.color === "blue") {
+          row += "b";
+        } else if (cell.color === "yellow") {
+          row += "y";
+        } else if (/^black[0-9]$/.test(cell.color)) {
+          row += cell.color.slice(5);
+        }
+      }
+      map.push(row);
+    }
+    return map;
+  }
+
+  saveForUndoAnchors() {
+    const anchors = this.anchored_cells.map(([cell, direction]) => ({
+      x: cell.x + cell.jelly.x,
+      y: cell.y + cell.jelly.y,
+      dir: direction,
+    }));
+
+    for (const [anchor, other] of this.delayed_anchors) {
+      let newAnchor = {
+        x: anchor.x,
+        y: anchor.y,
+        dir: anchor.dir,
+        delayed: true,
+      };
+      if (!(other instanceof Wall)) {
+        newAnchor = {
+          x: other.x + other.jelly.x - DIRECTIONS[anchor.dir].x,
+          y: other.y + other.jelly.y - DIRECTIONS[anchor.dir].y,
+          dir: anchor.dir,
+          delayed: true,
+        };
+      }
+      anchors.push(newAnchor);
+    }
+    return anchors;
+  }
+
+  saveForUndoGrowers() {
+    return this.growers.map(([cell, grower]) => {
+      let x = grower.x;
+      let y = grower.y;
+      if (!(cell instanceof Wall)) {
+        x = cell.x + cell.jelly.x;
+        y = cell.y + cell.jelly.y;
+      }
+      return { x, y, dir: grower.dir, color: grower.color };
+    });
+  }
+}
+
+class Wall {
+  constructor(dom) {
+    this.dom = dom;
+  }
+}
+
+class JellyCell {
+  constructor(color, documentRef = document) {
+    this.color = color;
+    this.dom = documentRef.createElement("div");
+    this.dom.className = `cell jelly ${color}`;
+    this.x = 0;
+    this.y = 0;
+    this.color_master = this;
+    this.color_mates = [this];
+  }
+
+  mergeWith(other, direction) {
+    const borders = {
+      left: ["borderLeft", "borderRight"],
+      right: ["borderRight", "borderLeft"],
+      up: ["borderTop", "borderBottom"],
+      down: ["borderBottom", "borderTop"],
+    };
+    this.dom.style[borders[direction][0]] = "none";
+    other.dom.style[borders[direction][1]] = "none";
+
+    if (other instanceof Wall) {
+      this.jelly.immovable = true;
+    }
+    if (
+      other instanceof JellyCell &&
+      this.color === other.color &&
+      this.color_master !== other.color_master
+    ) {
+      const otherMaster = other.color_master;
+      for (const cell of otherMaster.color_mates) {
+        cell.color_master = this.color_master;
+      }
+      this.color_master.color_mates = this.color_master.color_mates.concat(
+        otherMaster.color_mates,
+      );
+    }
+    if (other instanceof JellyCell && this.jelly !== other.jelly) {
+      this.jelly.merge(other.jelly);
+    }
+  }
+}
+
+class Jelly {
+  constructor(stage, cell, x, y) {
+    this.stage = stage;
+    this.x = x;
+    this.y = y;
+    this.dom = stage.document.createElement("div");
+    this.updatePosition(x, y);
+    this.dom.className = "cell jellybox";
+    cell.jelly = this;
+    this.cells = [cell];
+    this.dom.appendChild(cell.dom);
+    this.listenerRemovers = [
+      stage.listen(this.dom, "contextmenu", () => stage.trySlide(this, 1)),
+      stage.listen(this.dom, "click", () => stage.trySlide(this, -1)),
+      stage.listen(this.dom, "touchstart", (event) => {
+        this.start = event.touches[0].pageX;
+      }),
+      stage.listen(this.dom, "touchmove", (event) => {
+        let dx = event.touches[0].pageX - this.start;
+        if (Math.abs(dx) > 10) {
+          dx = Math.max(Math.min(dx, 1), -1);
+          stage.trySlide(this, dx);
+        }
+      }),
+    ];
+    this.immovable = false;
+  }
+
+  removeInputListeners() {
+    for (const remove of this.listenerRemovers) {
+      remove();
+    }
+    this.listenerRemovers = [];
+  }
+
+  cellCoords() {
+    return this.cells.map((cell) => [this.x + cell.x, this.y + cell.y, cell]);
+  }
+
+  updatePosition(x, y) {
+    this.x = x;
+    this.y = y;
+    moveToCell(this.dom, x, y);
+  }
+
+  merge(other) {
+    const dx = other.x - this.x;
+    const dy = other.y - this.y;
+    for (const cell of other.cells) {
+      this.cells.push(cell);
+      cell.x += dx;
+      cell.y += dy;
+      cell.jelly = this;
+      moveToCell(cell.dom, cell.x, cell.y);
+      this.dom.appendChild(cell.dom);
+    }
+    if (other.immovable) {
+      this.immovable = true;
+    }
+    other.removeInputListeners();
+    other.cells = null;
+    if (other.dom.parentNode) {
+      other.dom.parentNode.removeChild(other.dom);
+    }
+  }
+}
+
+function rebuildStage(currentStage, spec, history = []) {
+  const dom = currentStage.dom;
+  currentStage.destroy();
+  dom.innerHTML = "";
+  const nextStage = new Stage(dom, spec);
+  nextStage.history = history;
+  return nextStage;
+}
+
+function startGame(
+  documentRef = document,
+  locationRef = location,
+  windowRef = window,
+) {
+  const level = parseInt(locationRef.search.slice(1), 10) || 1;
+  const mapElement = documentRef.getElementById("map");
+  const levelPicker = documentRef.getElementById("level");
+  const resetButton = documentRef.getElementById("reset");
+  const undoButton = documentRef.getElementById("undo");
+  let stage = new Stage(mapElement, LEVELS[level - 1]);
+
+  const publishStage = () => {
+    windowRef.stage = stage;
+  };
+  const mountStage = (spec, history = []) => {
+    stage = rebuildStage(stage, spec, history);
+    publishStage();
+    return stage;
+  };
+
+  publishStage();
+  for (let index = 1; index <= LEVELS.length; index += 1) {
+    const option = documentRef.createElement("option");
+    option.value = index;
+    option.appendChild(documentRef.createTextNode(`Level ${index}`));
+    levelPicker.appendChild(option);
+  }
+  levelPicker.value = level;
+
+  const changeLevel = () => {
+    locationRef.search = `?${levelPicker.value}`;
+  };
+  const reset = () => {
+    mountStage(LEVELS[level - 1]);
+  };
+  const undo = () => {
+    if (stage.busy || !Array.isArray(stage.history[0])) {
+      return;
+    }
+    const history = stage.history;
+    const snapshot = history.pop();
+    mountStage(snapshot, history);
+  };
+
+  levelPicker.addEventListener("change", changeLevel);
+  resetButton.addEventListener("click", reset);
+  undoButton.addEventListener("click", undo);
+
+  return {
+    get stage() {
+      return stage;
+    },
+    reset,
+    undo,
+    destroy() {
+      levelPicker.removeEventListener("change", changeLevel);
+      resetButton.removeEventListener("click", reset);
+      undoButton.removeEventListener("click", undo);
+      stage.destroy();
+    },
+  };
+}
+
+const JellyGame = {
+  LEVELS,
+  Stage,
+  Wall,
+  JellyCell,
+  Jelly,
+  rebuildStage,
+  startGame,
+};
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = JellyGame;
+}
+
+if (typeof window !== "undefined") {
+  window.JellyGame = JellyGame;
+  if (typeof document !== "undefined" && document.getElementById("map")) {
+    window.jellyGame = startGame(document, location, window);
+  }
+}
